@@ -30,14 +30,14 @@ class BooksSpider(scrapy.Spider):
     @staticmethod
     def parse_book(response: Response) -> dict:
         return {
-                "title": BooksSpider._get_title(response),
-                "price": BooksSpider._get_price(response),
-                "amount_in_stock": BooksSpider._get_amount_in_stock(response),
-                "rating": BooksSpider._get_rating(response),
-                "category": BooksSpider._get_category(response),
-                "description": BooksSpider._get_description(response),
-                "upc": BooksSpider._get_upc(response),
-            }
+            "title": BooksSpider._get_title(response),
+            "price": BooksSpider._get_price(response),
+            "amount_in_stock": BooksSpider._get_amount_in_stock(response),
+            "rating": BooksSpider._get_rating(response),
+            "category": BooksSpider._get_category(response),
+            "description": BooksSpider._get_description(response),
+            "upc": BooksSpider._get_upc(response),
+        }
 
     @staticmethod
     def _get_title(response: Response) -> str:
@@ -54,7 +54,9 @@ class BooksSpider(scrapy.Spider):
 
     @staticmethod
     def _get_rating(response: Response) -> int:
-        return SCORES[response.css(".star-rating::attr(class)").get().split()[1]]
+        return SCORES[response.css(
+            ".star-rating::attr(class)"
+        ).get().split()[1]]
 
     @staticmethod
     def _get_category(response: Response) -> str:
