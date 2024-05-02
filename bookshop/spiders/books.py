@@ -1,4 +1,5 @@
 import re
+from typing import Generator
 
 import scrapy
 from scrapy.http import Response
@@ -18,7 +19,7 @@ class BooksSpider(scrapy.Spider):
     allowed_domains = ["books.toscrape.com"]
     start_urls = ["https://books.toscrape.com/"]
 
-    def parse(self, response: Response, **kwargs) -> Response:
+    def parse(self, response: Response, **kwargs) -> Generator[scrapy.Request, None, None]:
         book_links = response.css("article > h3 > a")
         for book_link in book_links:
             yield response.follow(book_link, callback=BooksSpider.parse_book)
